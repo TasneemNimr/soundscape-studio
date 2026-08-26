@@ -1,6 +1,6 @@
 # 🎙️ SoundScape — Multi-Page Podcast Studio & Portfolio
 
-A modern, fully responsive, and feature-rich Web Application designed for podcast creators, featuring a sleek **Portfolio-style multi-page navigation**, live soundboard mixing, and real-time audio management. Built from scratch with clean, semantic Vanilla Web Technologies and the Web Audio API, wrapped in a custom Pink & Rose aesthetic.
+A modern, fully responsive, and feature-rich Web Application designed for podcast creators, featuring a sleek **Portfolio-style navigation**, real-time noise reduction, and persistent audio management. Built from scratch with clean, semantic Vanilla Web Technologies and the Web Audio API, wrapped in a custom Pink & Rose aesthetic.
 
 ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=white)
 ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=css3&logoColor=white)
@@ -17,13 +17,11 @@ A modern, fully responsive, and feature-rich Web Application designed for podcas
 
 ## 🌟 Key Features
 
-* **🧭 Portfolio-Style Multi-Page Navigation:** Clean top-bar architecture allowing seamless switching between dedicated studio pages (`index.html`, `soundboard.html`, `mixer.html`, `library.html`) while maintaining a unified visual identity.
-* **🧹 Real-Time Noise Reduction:** Customizable high-pass filter cutoff slider (0 - 500 Hz) to instantly eliminate unwanted background hums and microphone noise.
+* **🧭 Portfolio-Style Navigation:** Clean top-bar architecture allowing seamless switching between the dedicated studio page (`index.html`) and the recordings library (`library.html`) while maintaining a unified visual identity.
+* **🧹 Real-Time Noise Reduction:** Customizable high-pass filter cutoff slider (0 - 500 Hz) to instantly eliminate unwanted background hums and microphone noise during live recording.
 * **🌸 Custom Pink & Rose Aesthetic:** Distinctive, eye-catching color palette tailored with sleek modern studio tones and fluid transitions.
 * **📱 Fully Responsive Design:** Perfectly optimized layouts that adapt seamlessly across Laptops, Tablets, and Mobile devices.
 * **📊 Main Studio & Visualizer:** Real-time audio spectrum analysis and master engine controls using the Web Audio API.
-* **🎛️ Interactive Soundboard:** Quick-access sound pads with synthesized audio effects for live podcast production.
-* **🌊 Ambient Mixer:** Multi-channel ambient noise generator (Rain, Waves) with customizable audio faders.
 * **📁 Recordings Library:** Persistent audio recording and playback system powered by Base64 encoding and LocalStorage.
 
 ---
@@ -58,8 +56,6 @@ The application features a unique custom-crafted pink and rose theme for an enga
 soundscape-studio/
 │
 ├── index.html         # Main Studio, Visualizer & Noise Filter page
-├── soundboard.html    # Interactive Soundboard page
-├── mixer.html         # Ambient Audio Mixer page
 ├── library.html       # Recordings Library & Persistence page
 ├── style.css          # Global CSS, Custom Pink Theme & Responsive Media Queries
 ├── app.js             # Core Audio Logic, BiquadFilter, State Management
