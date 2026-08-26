@@ -7,19 +7,10 @@ let dataArray;
 let bufferLength;
 let canvas, canvasCtx;
 
-// Ambient Mixer Audio Nodes
-let rainSource = null, rainGain = null;
-let wavesSource = null, wavesGain = null, wavesFilter = null;
-
 const recordBtn = document.getElementById('recordBtn');
 const stopBtn = document.getElementById('stopBtn');
 const noiseSlider = document.getElementById('noiseSlider');
 const sliderValueDisplay = document.getElementById('sliderValue');
-
-const rainSlider = document.getElementById('rainSlider');
-const rainVal = document.getElementById('rainVal');
-const wavesSlider = document.getElementById('wavesSlider');
-const wavesVal = document.getElementById('wavesVal');
 
 window.addEventListener('DOMContentLoaded', () => {
     canvas = document.getElementById('visualizer');
@@ -85,120 +76,6 @@ function drawVisualizer() {
         canvasCtx.fillRect(x, canvas.height - barHeight, barWidth, barHeight);
         x += barWidth + 1;
     }
-}
-
-// 🎛️ Soundboard Audio Generator
-function playSound(type) {
-    initAudio();
-    const osc = audioCtx.createOscillator();
-    const gainNode = audioCtx.createGain();
-    osc.connect(gainNode);
-    gainNode.connect(audioCtx.destination);
-
-    if (type === 'bell') {
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(800, audioCtx.currentTime);
-        gainNode.gain.setValueAtTime(0.3, audioCtx.currentTime);
-        gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 1.5);
-        osc.start();
-        osc.stop(audioCtx.currentTime + 1.5);
-    } else if (type === 'drum') {
-        osc.type = 'triangle';
-        for (let i = 0; i < 4; i++) {
-            osc.frequency.setValueAtTime(120 + i * 40, audioCtx.currentTime + i * 0.08);
-        }
-        gainNode.gain.setValueAtTime(0.25, audioCtx.currentTime);
-        gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.4);
-        osc.start();
-        osc.stop(audioCtx.currentTime + 0.4);
-    } else if (type === 'laugh') {
-        osc.type = 'sawtooth';
-        osc.frequency.setValueAtTime(350, audioCtx.currentTime);
-        osc.frequency.linearRampToValueAtTime(550, audioCtx.currentTime + 0.15);
-        osc.frequency.linearRampToValueAtTime(350, audioCtx.currentTime + 0.3);
-        gainNode.gain.setValueAtTime(0.2, audioCtx.currentTime);
-        gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.35);
-        osc.start();
-        osc.stop(audioCtx.currentTime + 0.35);
-    } else { // Applause
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(500, audioCtx.currentTime);
-        osc.frequency.exponentialRampToValueAtTime(900, audioCtx.currentTime + 0.25);
-        gainNode.gain.setValueAtTime(0.2, audioCtx.currentTime);
-        gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.3);
-        osc.start();
-        osc.stop(audioCtx.currentTime + 0.3);
-    }
-}
-
-// 🌊 Ambient Mixer Generator
-function createNoiseBuffer() {
-    if (!audioCtx) return null;
-    const bufferSize = audioCtx.sampleRate * 2;
-    const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
-    const data = buffer.getChannelData(0);
-    for (let i = 0; i < bufferSize; i++) {
-        data[i] = Math.random() * 2 - 1;
-    }
-    return buffer;
-}
-
-if (rainSlider) {
-    rainSlider.addEventListener('input', async (e) => {
-        const val = e.target.value;
-        rainVal.textContent = val;
-        await initAudio();
-
-        if (!rainGain) {
-            const buffer = createNoiseBuffer();
-            if (!buffer) return;
-            rainSource = audioCtx.createBufferSource();
-            rainSource.buffer = buffer;
-            rainSource.loop = true;
-
-            const filter = audioCtx.createBiquadFilter();
-            filter.type = 'lowpass';
-            filter.frequency.value = 1200;
-
-            rainGain = audioCtx.createGain();
-            rainGain.gain.value = 0;
-
-            rainSource.connect(filter);
-            filter.connect(rainGain);
-            rainGain.connect(audioCtx.destination);
-            rainSource.start();
-        }
-        rainGain.gain.setValueAtTime((val / 100) * 0.25, audioCtx.currentTime);
-    });
-}
-
-if (wavesSlider) {
-    wavesSlider.addEventListener('input', async (e) => {
-        const val = e.target.value;
-        wavesVal.textContent = val;
-        await initAudio();
-
-        if (!wavesGain) {
-            const buffer = createNoiseBuffer();
-            if (!buffer) return;
-            wavesSource = audioCtx.createBufferSource();
-            wavesSource.buffer = buffer;
-            wavesSource.loop = true;
-
-            wavesFilter = audioCtx.createBiquadFilter();
-            wavesFilter.type = 'lowpass';
-            wavesFilter.frequency.value = 350;
-
-            wavesGain = audioCtx.createGain();
-            wavesGain.gain.value = 0;
-
-            wavesSource.connect(wavesFilter);
-            wavesFilter.connect(wavesGain);
-            wavesGain.connect(audioCtx.destination);
-            wavesSource.start();
-        }
-        wavesGain.gain.setValueAtTime((val / 100) * 0.35, audioCtx.currentTime);
-    });
 }
 
 // Recording Logic
