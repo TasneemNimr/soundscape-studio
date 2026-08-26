@@ -1,0 +1,227 @@
+:root {
+    --bg-main: #0f050a;
+    --bg-card: #1f101f;
+    --bg-element: #2d162c;
+    --primary-pink: #ec4899;
+    --primary-hover: #db2777;
+    --accent-pink: #f472b6;
+    --text-main: #fce7f3;
+    --text-muted: #cbd5e1;
+    --border-color: #4a1d42;
+}
+
+body {
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+header nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background: var(--bg-card);
+    border-bottom: 1px solid var(--border-color);
+}
+
+header nav h1 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: var(--accent-pink);
+}
+
+header nav ul {
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
+    margin: 0;
+    padding: 0;
+}
+
+header nav ul li a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.2s;
+}
+
+header nav ul li a.active, 
+header nav ul li a:hover {
+    color: var(--accent-pink);
+}
+
+.studio-container, .page-container {
+    max-width: 700px;
+    margin: 3rem auto;
+    padding: 2rem;
+    background: var(--bg-card);
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(236, 72, 153, 0.15);
+    text-align: center;
+    border: 1px solid var(--border-color);
+}
+
+h2 {
+    margin-top: 0;
+    color: var(--text-main);
+}
+
+#visualizer {
+    width: 100%;
+    height: 150px;
+    background: var(--bg-main);
+    border-radius: 8px;
+    margin: 1.5rem 0;
+    border: 1px solid var(--border-color);
+}
+
+.control-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+}
+
+button {
+    padding: 0.75rem 1.5rem;
+    background: var(--primary-pink);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1rem;
+    transition: background 0.2s, transform 0.1s;
+}
+
+button:active {
+    transform: scale(0.98);
+}
+
+button:disabled {
+    background: #5b214b;
+    color: #9ca3af;
+    cursor: not-allowed;
+    transform: none;
+}
+
+button:hover:not(:disabled) {
+    background: var(--primary-hover);
+}
+
+.control-panel-group {
+    background: var(--bg-element);
+    padding: 1rem;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 400px;
+    box-sizing: border-box;
+    text-align: left;
+    border: 1px solid var(--border-color);
+}
+
+.control-panel-group label {
+    display: block;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
+}
+
+input[type="range"] {
+    width: 100%;
+    accent-color: var(--accent-pink);
+    cursor: pointer;
+}
+
+.grid-pads {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.pad-btn {
+    background: var(--bg-element);
+    color: var(--text-main);
+    border: 1px solid var(--border-color);
+    padding: 2rem;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: 0.2s;
+    width: 100%;
+}
+
+.pad-btn:hover {
+    background: var(--primary-pink);
+    border-color: var(--accent-pink);
+}
+
+.recording-item {
+    background: var(--bg-element);
+    padding: 1rem;
+    margin: 0.75rem 0;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid var(--border-color);
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+/* ==========================================
+   📱 💻 استعلامات التجاوب مع جميع الشاشات (Media Queries)
+   ================================---------- */
+
+/* شاشات التابلت (Medium Screens) */
+@media (max-width: 900px) {
+    .studio-container, .page-container {
+        margin: 1.5rem;
+        padding: 1.5rem;
+    }
+    header nav {
+        padding: 1rem;
+    }
+}
+
+/* شاشات الجوال والهواتف الذكية (Small Screens) */
+@media (max-width: 600px) {
+    header nav {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+    }
+    
+    header nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1rem;
+    }
+
+    .studio-container, .page-container {
+        margin: 1rem;
+        padding: 1rem;
+    }
+
+    .grid-pads {
+        grid-template-columns: 1fr; /* تحويل أزرار الساوندبอร์ด لعمود واحد في الموبايل */
+    }
+
+    button {
+        width: 100%; /* جعل الأزرار بعرض الشاشة ليسهل النقر عليها بالإصبع */
+    }
+
+    .control-panel-group {
+        max-width: 100%;
+    }
+
+    .recording-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}

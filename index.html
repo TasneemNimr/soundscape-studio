@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SoundScape - Podcast Studio</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <h1>🎙️ SoundScape</h1>
+            <ul>
+                <li><a href="index.html" class="active">Studio</a></li>
+                <li><a href="soundboard.html">Soundboard</a></li>
+                <li><a href="mixer.html">Mixer</a></li>
+                <li><a href="library.html">Library</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="studio-container">
+        <h2>Main Studio & Visualizer</h2>
+        
+        <canvas id="visualizer"></canvas>
+
+        <div class="control-panel">
+            <button id="recordBtn">Start Recording</button>
+            <button id="stopBtn" disabled>Stop Recording</button>
+            
+            <div class="control-panel-group">
+                <label for="noiseSlider">
+                    🧹 Noise Reduction (Cutoff): <span id="sliderValue">100</span> Hz
+                </label>
+                <input type="range" id="noiseSlider" min="0" max="500" value="100" step="10">
+            </div>
+        </div>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>
