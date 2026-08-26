@@ -6,6 +6,8 @@ let analyser;
 let dataArray;
 let bufferLength;
 let canvas, canvasCtx;
+let masterGain;
+let mediaStreamDestination;
 
 // Ambient Mixer Audio Nodes
 let rainSource = null, rainGain = null;
@@ -35,6 +37,16 @@ window.addEventListener('DOMContentLoaded', () => {
 async function initAudio() {
     if (!audioCtx) {
         audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        
+        // Master Hub for mixing playback and recording together
+        masterGain = audioCtx.createGain();
+        masterGain.gain.value = 1.0;
+
+        mediaStreamDestination = audioCtx.createMediaStreamDestination();
+        
+        // Connect master hub to speakers AND to the recorder destination
+        masterGain.connect(audioCtx.destination);
+        masterGain.connect(mediaStreamDestination);
         
         noiseFilter = audioCtx.createBiquadFilter();
         noiseFilter.type = "highpass";
@@ -87,13 +99,13 @@ function drawVisualizer() {
     }
 }
 
-// 🎛️ Soundboard Audio Generator (Synthesizer Effects)
+// 🎛️ Soundboard Audio Generator (Connected to masterGain so it's heard AND recorded)
 function playSound(type) {
     initAudio();
     const osc = audioCtx.createOscillator();
     const gainNode = audioCtx.createGain();
     osc.connect(gainNode);
-    gainNode.connect(audioCtx.destination);
+    gainNode.connect(masterGain);
 
     if (type === 'bell') {
         osc.type = 'sine';
@@ -131,7 +143,7 @@ function playSound(type) {
     }
 }
 
-// 🌊 Ambient Mixer Generator (Rain & Waves Noise Buffers)
+// 🌊 Ambient Mixer Generator (Connected to masterGain)
 function createNoiseBuffer() {
     if (!audioCtx) return null;
     const bufferSize = audioCtx.sampleRate * 2;
@@ -165,7 +177,7 @@ if (rainSlider) {
 
             rainSource.connect(filter);
             filter.connect(rainGain);
-            rainGain.connect(audioCtx.destination);
+            rainGain.connect(masterGain);
             rainSource.start();
         }
         rainGain.gain.setValueAtTime((val / 100) * 0.25, audioCtx.currentTime);
@@ -194,14 +206,14 @@ if (wavesSlider) {
 
             wavesSource.connect(wavesFilter);
             wavesFilter.connect(wavesGain);
-            wavesGain.connect(audioCtx.destination);
+            wavesGain.connect(masterGain);
             wavesSource.start();
         }
         wavesGain.gain.setValueAtTime((val / 100) * 0.35, audioCtx.currentTime);
     });
 }
 
-// Recording Logic
+// Recording Logic: Captures from mediaStreamDestination (all mixed audio!)
 if (recordBtn) {
     recordBtn.addEventListener('click', async () => {
         await initAudio();
@@ -209,15 +221,13 @@ if (recordBtn) {
         
         try {
             const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-            const source = audioCtx.createMediaStreamSource(stream);
+            const micSource = audioCtx.createMediaStreamSource(stream);
             
-            source.connect(noiseFilter);
+            micSource.connect(noiseFilter);
             noiseFilter.connect(analyser);
-            
-            const destination = audioCtx.createMediaStreamDestination();
-            noiseFilter.connect(destination);
+            analyser.connect(masterGain);
 
-            mediaRecorder = new MediaRecorder(destination.stream);
+            mediaRecorder = new MediaRecorder(mediaStreamDestination.stream);
 
             mediaRecorder.ondataavailable = (event) => {
                 if (event.data.size > 0) {
@@ -260,7 +270,7 @@ function saveRecording() {
         records.push({ url: base64Audio, date: new Date().toLocaleString() });
         
         localStorage.setItem('recordings', JSON.stringify(records));
-        alert("Recording saved successfully with noise filter applied!");
+        alert("Podcast saved successfully! Voice, noise reduction, sound effects, and ambient mixer are fully blended.");
         loadLibrary();
     };
 }
@@ -271,7 +281,7 @@ function loadLibrary() {
 
     const records = JSON.parse(localStorage.getItem('recordings') || '[]');
     if (records.length === 0) {
-        listContainer.innerHTML = '<p style="color: var(--text-muted); text-align: center;">No recordings found yet. Go to Studio and record your podcast!</p>';
+        listContainer.innerHTML = '<p style="color: var(--text-muted); text-align: center;">No recordings found yet. Record your podcast above!</p>';
         return;
     }
 
