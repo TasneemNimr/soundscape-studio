@@ -3,72 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SoundScape - All-in-One Podcast Studio</title>
+    <title>SoundScape - Studio</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
-   <nav style="display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem; background: var(--card-bg); border-bottom: 1px solid var(--border-color);">
-    <h1 style="font-size: 1.25rem; color: var(--primary-color);">🎙️ SoundScape Studio</h1>
-    <ul style="display: flex; list-style: none; gap: 1.5rem; margin: 0;">
-        <li><a href="index.html" class="nav-link">Studio</a></li>
-        <li><a href="soundboard.html" class="nav-link">Soundboard</a></li>
-        <li><a href="mixer.html" class="nav-link">Mixer</a></li>
-        <li><a href="library.html" class="nav-link">Library</a></li>
-    </ul>
-</nav>
+        <nav>
+            <h1>🎙️ SoundScape Studio</h1>
+            <ul>
+                <li><a href="index.html" class="active">Studio</a></li>
+                <li><a href="soundboard.html">Soundboard</a></li>
+                <li><a href="mixer.html">Mixer</a></li>
+                <li><a href="library.html">Library</a></li>
+            </ul>
+        </nav>
     </header>
 
     <main class="studio-container">
-        <h2>Professional Podcast Studio & Mixer</h2>
-        <p style="color: var(--text-muted);">Record your voice, apply noise reduction, trigger sound effects, mix ambient sounds, and manage your library all in one place!</p>
-
-        <!-- Audio Visualizer -->
+        <h2>Main Studio & Visualizer</h2>
+        <p style="color: var(--text-muted);">Record your voice with live noise reduction.</p>
+        
         <canvas id="visualizer"></canvas>
 
-        <!-- Recording Controls -->
-        <div class="control-panel" style="margin-bottom: 1.5rem;">
+        <div class="control-panel">
             <button id="recordBtn">Start Recording 🔴</button>
             <button id="stopBtn" disabled>Stop Recording ⏹️</button>
-        </div>
-
-        <!-- Noise Reduction Control -->
-        <div class="control-panel-group" style="margin: 0 auto 1.5rem auto;">
-            <label>🧹 Noise Reduction (High-Pass Filter): <span id="sliderValue">100</span> Hz</label>
-            <input type="range" id="noiseSlider" min="0" max="500" value="100" step="10">
-        </div>
-
-        <hr style="border: 0; border-top: 1px solid var(--border-color); margin: 2rem 0;">
-
-        <!-- Live Soundboard Section -->
-        <h3>🎛️ Live Soundboard</h3>
-        <div class="grid-pads">
-            <button class="pad-btn" onclick="playSound('bell')">🔔 Bell Effect</button>
-            <button class="pad-btn" onclick="playSound('drum')">🥁 Drum Roll</button>
-            <button class="pad-btn" onclick="playSound('laugh')">😂 Audience Laugh</button>
-            <button class="pad-btn" onclick="playSound('applause')">👏 Applause / Chime</button>
-        </div>
-
-        <hr style="border: 0; border-top: 1px solid var(--border-color); margin: 2rem 0;">
-
-        <!-- Ambient Mixer Section -->
-        <h3>🌊 Ambient Background Mixer</h3>
-        <div class="control-panel" style="gap: 1rem;">
+            
             <div class="control-panel-group">
-                <label>🌧️ Rain Ambience Volume: <span id="rainVal">0</span>%</label>
-                <input type="range" id="rainSlider" min="0" max="100" value="0">
-            </div>
-            <div class="control-panel-group">
-                <label>🌊 Ocean Waves Volume: <span id="wavesVal">0</span>%</label>
-                <input type="range" id="wavesSlider" min="0" max="100" value="0">
+                <label for="noiseSlider">
+                    🧹 Noise Reduction (Cutoff): <span id="sliderValue">100</span> Hz
+                </label>
+                <input type="range" id="noiseSlider" min="0" max="500" value="100" step="10">
             </div>
         </div>
-
-        <hr style="border: 0; border-top: 1px solid var(--border-color); margin: 2rem 0;">
-
-        <!-- Recordings Library Section -->
-        <h3>📁 Recordings Library</h3>
-        <div id="recordingsList" style="margin-top: 1rem; text-align: left;"></div>
     </main>
 
     <script src="app.js"></script>
