@@ -137,30 +137,6 @@ input[type="range"] {
     cursor: pointer;
 }
 
-.grid-pads {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
-    margin-top: 1.5rem;
-}
-
-.pad-btn {
-    background: var(--bg-element);
-    color: var(--text-main);
-    border: 1px solid var(--border-color);
-    padding: 2rem;
-    border-radius: 12px;
-    font-size: 1.1rem;
-    cursor: pointer;
-    transition: 0.2s;
-    width: 100%;
-}
-
-.pad-btn:hover {
-    background: var(--primary-pink);
-    border-color: var(--accent-pink);
-}
-
 .recording-item {
     background: var(--bg-element);
     padding: 1rem;
@@ -174,7 +150,6 @@ input[type="range"] {
     gap: 0.5rem;
 }
 
-/* الاستجابة الكاملة للشاشات (لابتوب، تابلت، موبايل) */
 @media (max-width: 900px) {
     .studio-container, .page-container {
         margin: 1.5rem;
@@ -199,9 +174,6 @@ input[type="range"] {
     .studio-container, .page-container {
         margin: 1rem;
         padding: 1rem;
-    }
-    .grid-pads {
-        grid-template-columns: 1fr;
     }
     button {
         width: 100%;
