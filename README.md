@@ -1,6 +1,6 @@
 # 🎙️ SoundScape — Premium Podcast Studio
 
-A modern, fully responsive, and feature-rich Web Application designed for podcast creators, live soundboard mixing, and real-time audio management. Built from scratch with clean, semantic Vanilla Web Technologies and the Web Audio API.
+A modern, fully responsive, and feature-rich Web Application designed for podcast creators, live soundboard mixing, and real-time audio management. Built from scratch with clean, semantic Vanilla Web Technologies and the Web Audio API, featuring a custom Pink & Rose aesthetic.
 
 Live Demo HTML5 CSS3 JavaScript Web Audio API License: MIT
 
@@ -10,15 +10,15 @@ Live Demo HTML5 CSS3 JavaScript Web Audio API License: MIT
 
 🌟 Key Features
 * **🧹 Real-Time Noise Reduction:** Customizable high-pass filter cutoff slider (0 - 500 Hz) to instantly eliminate unwanted background hums and microphone noise.
+* **🌸 Custom Pink & Rose Aesthetic:** Distinctive, eye-catching color palette tailored with sleek modern studio tones and fluid transitions.
+* **📱 Fully Responsive Design:** Perfectly optimized layouts that adapt seamlessly across Laptops, Tablets, and Mobile devices.
 * **📊 Main Studio & Visualizer:** Real-time audio spectrum analysis and master engine controls using the Web Audio API.
 * **🎛️ Interactive Soundboard:** Quick-access sound pads with synthesized audio effects for live podcast production.
 * **🌊 Ambient Mixer:** Multi-channel ambient noise generator (Rain, Waves) with customizable audio faders.
 * **📁 Recordings Library:** Persistent audio recording and playback system powered by Base64 encoding and LocalStorage.
-* **🌓 Pink & Rose Aesthetic:** Custom-styled theme modes with fluid color transitions and modern studio UI.
-* **🌐 Responsive Layout:** Fully adaptive layout optimized for Laptops, Tablets, and Mobile devices.
 
 🎨 Color Palette & Design System
-The application design follows accessible contrast guidelines with sleek modern studio pink tones:
+The application features a unique custom-crafted pink and rose theme for an engaging user experience:
 
 | Element | Color Hex | Visual |
 | :--- | :--- | :--- |
@@ -42,7 +42,7 @@ soundscape-studio/
 ├── soundboard.html     # Interactive Soundboard page
 ├── mixer.html          # Ambient Audio Mixer page
 ├── library.html        # Recordings Library & Persistence page
-├── style.css           # Global CSS, Design System, Responsive Themes & Animations
+├── style.css           # Global CSS, Custom Pink Theme & Responsive Media Queries
 ├── app.js              # Core Audio Logic, BiquadFilter, State Management
 └── README.md           # Project Documentation
 
